@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Validate</title>
+    <style>
+        /* css code to color all the span tag code*/ 
+       span{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- To check the all the field are fillup and min one radio-button is checked and min two check-box are checked. -->
+    <!-- if any field is empty or any check-box or radio-button is not checked then don't proceed next page-->
+    <form action="first.html" onsubmit="return validate()">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td><input id="nameId" type="text" placeholder="Enter Name"><br>
+                        <span id="nameSpnId"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input id="pswdId" type="password" placeholder="Enter Password" onkeyup="checkPswd()">
+                        <br>
+                        <span id="pswdSpanId"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address:</td>
+                    <td><textarea id="addressId" cols="22" rows="6" type="text" placeholder="Enter address"></textarea><br>
+                        <span id="addressSpnId"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Gender:</td>
+                    <td><input type="radio" value="Male" name="gender">Male &nbsp;
+                        <input value="Female" type="radio" name="gender">Female
+                        <br>
+                        <span id="genderSpnId"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Skill:
+                    </td>
+                    <td>
+                        <input type="checkbox" value="Java" name="check">Java &nbsp;<input type="checkbox" name="check">PHP&nbsp;<input
+                            type="checkbox" name="check">JS&nbsp;<input type="checkbox" name="check">Python
+                        <br>
+                        <span id="checkSpnId"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select College:</td>
+                    <td><select name="college" id="clgId">
+                            <option value=""></option>
+                            <option value="Malda_College">Malda College</option>
+                            <option value="Gour_College">Gour College</option>
+                            <option value="Jadavpur_University">Jadavpur University</option>
+                            <option value="APC_College">APC College</option>
+                        </select>
+                        <span id="clgSpnId"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <script>
+        //JS start 
+        function validate() {
+            //get all the element by there id or name 
+            let name = document.getElementById("nameId").value;
+            let address = document.getElementById("addressId").value;
+            let checkbtn = document.getElementsByName("check");
+            let optbtn = document.getElementsByName("gender");
+            let slctOptn = document.getElementById("clgId");
+            //check if name is empty then return false,else move forword.
+            if (name.trim() == "") {
+
+                let nameSpn = document.getElementById("nameSpnId");
+                nameSpn.textContent = "Please fill the above field";
+                return false;
+            }
+            //if password is empty then return false.else move forword.
+            else if (password.trim() == "") {
+
+                document.getElementById("nameSpnId").textContent = "";
+                document.getElementById("pswdSpanId").textContent = "Please fill the above field";
+                return false;
+            }
+            //if address is empty then return false.else move forword.
+
+            else if (address.trim() == "") {
+
+                document.getElementById("pswdSpanId").textContent = "";
+                let addSpn = document.getElementById("addressSpnId");
+                addSpn.textContent = "Please fill the above field";
+                return false;
+            }
+            //if both are uncheck then display msg and return false, if any one option button is check move forword.
+            else if (optbtn[0].checked == false && optbtn[1].checked == false) {
+                document.getElementById("addressSpnId").textContent = ""
+                document.getElementById("genderSpnId").textContent = "Please select any of one"
+                return false;
+            }
+
+            //if min two chechbox are check then move forword.
+            let counter1 = 0;
+            for (let i = 0; i < checkbtn.length; i++) {
+
+                if (checkbtn[i].checked == true) {
+                    counter1++;
+                }
+            }
+            //if min two are not selected then return false and display the msg.
+            if (counter1 < 2) {
+                document.getElementById("genderSpnId").textContent = "";
+                document.getElementById("checkSpnId").textContent = "Please select atleast any two";
+                return false;
+            }
+            //if select option is blank then return false.
+            else if (slctOptn.value == "") {
+                document.getElementById("checkSpnId").textContent = "";
+                document.getElementById("clgSpnId").textContent = "Please choose any";
+                return false;
+            }
+        }
+        //check the function length and display the msg.
+        function checkPswd() {
+            //get the password using id.
+            let getPassword = document.getElementById("pswdId").value;
+            //remove the blank-space using trim method.
+            let pass = getPassword.trim();
+            //display the message depend on the length of the password.
+            if (pass.length == 0) {
+                document.getElementById("pswdSpanId").textContent = "put the password"
+
+            }
+
+            else if (pass.length < 2) {
+                document.getElementById("pswdSpanId").textContent = "too-short"
+
+            }
+            else if (pass.length < 5) {
+                document.getElementById("pswdSpanId").textContent = "Week password"
+
+            } else if (pass.length >= 5 && pass.length < 8) {
+
+                document.getElementById("pswdSpanId").textContent = "Good password"
+
+            }
+            else if (pass.length >= 8 && pass.length < 15) {
+
+                document.getElementById("pswdSpanId").textContent = "Strong password"
+
+            } else if (pass.length > 15) {
+
+                document.getElementById("pswdSpanId").textContent = "password should be less than 15 charecter"
+
+            }
+        }
+    </script>
+</body>
+
+</html>
